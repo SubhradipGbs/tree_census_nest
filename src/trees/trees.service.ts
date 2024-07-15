@@ -1,6 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateTreeDto } from './dto/create-tree.dto';
-import { UpdateTreeDto } from './dto/update-tree.dto';
 import { InjectModel } from '@nestjs/sequelize';
 import { Tree } from './model/tree.model';
 
