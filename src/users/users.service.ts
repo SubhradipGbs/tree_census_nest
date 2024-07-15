@@ -1,5 +1,7 @@
 import {
   BadRequestException,
+  HttpException,
+  HttpStatus,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -8,6 +10,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectModel } from '@nestjs/sequelize';
 import { User } from './model/user.model';
 import * as bcrypt from 'bcryptjs';
+import { LoginUserDTO } from 'src/auth/dto/login.dto';
 
 @Injectable()
 export class UsersService {
@@ -51,5 +54,28 @@ export class UsersService {
 
   async findAll(): Promise<User[]> {
     return this.userModel.findAll();
+  }
+
+  async validateUser(body: LoginUserDTO): Promise<User | null> {
+    return new Promise(async (resolve, reject) => {
+      const { mobileNo, password } = body;
+      try {
+        const user = await this.userModel.findOne({ where: { mobileNo } });
+        if (!user)
+          throw new HttpException(
+            'Combination of Email & Password missmatch.',
+            HttpStatus.BAD_REQUEST,
+          );
+        const isValidUser = await bcrypt.compare(password, user.password);
+        if (!isValidUser)
+          throw new HttpException(
+            'Combination of Email & Password missmatch.',
+            HttpStatus.BAD_REQUEST,
+          );
+        resolve(user);
+      } catch (error) {
+        reject(error);
+      }
+    });
   }
 }
