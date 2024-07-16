@@ -1,4 +1,5 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
+import { User } from 'src/users/model/user.model';
 
 @Table
 export class Role extends Model<Role> {
@@ -7,14 +8,18 @@ export class Role extends Model<Role> {
     autoIncrement: true,
     primaryKey: true,
   })
-  role_id: number;
+  roleId: number;
 
   @Column({
     type: DataType.TEXT,
     allowNull: false,
+    unique: true,
   })
-  role_name: string;
+  roleName: string;
 
   @Column(DataType.TEXT)
   description: string;
+
+  @HasMany(() => User)
+  users: User[];
 }

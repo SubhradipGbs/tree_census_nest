@@ -1,13 +1,11 @@
-import { IsNotEmpty, IsNumberString, IsString } from "class-validator";
+import { IsNotEmpty, IsNumberString, IsString } from 'class-validator';
 
+export class LoginUserDTO {
+  @IsNotEmpty()
+  @IsNumberString()
+  mobileNo: string;
 
-export class LoginUserDTO{
-
-    @IsNotEmpty()
-    @IsNumberString()
-    mobileNo:string;
-
-    @IsNotEmpty()
-    @IsString()
-    password:string;
+  @IsNotEmpty()
+  @IsString()
+  password: string;
 }

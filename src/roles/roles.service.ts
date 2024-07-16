@@ -26,7 +26,7 @@ export class RolesService {
   }
 
   async delete(id: number): Promise<void> {
-    const item = await this.roleModel.findOne({ where: { role_id: id } });
+    const item = await this.roleModel.findOne({ where: { roleId: id } });
     await item.destroy();
   }
 

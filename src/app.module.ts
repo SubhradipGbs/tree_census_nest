@@ -5,10 +5,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import configuration from './config/configuration';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Dialect } from 'sequelize/types';
-import { RolesModule } from './roles/roles.module';
 import { UsersModule } from './users/users.module';
 import { TreesModule } from './trees/trees.module';
 import { AuthModule } from './auth/auth.module';
+import { RolesModule } from './roles/roles.module';
 
 @Module({
   imports: [
@@ -30,7 +30,8 @@ import { AuthModule } from './auth/auth.module';
       }),
       inject: [ConfigService],
     }),
-    // RolesModule,
+    RolesModule,
+    AuthModule,
     UsersModule,
     TreesModule,
   ],

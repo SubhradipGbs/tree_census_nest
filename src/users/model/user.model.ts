@@ -1,4 +1,14 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import {
+  BeforeCreate,
+  BeforeUpdate,
+  BelongsTo,
+  Column,
+  DataType,
+  ForeignKey,
+  Model,
+  Table,
+} from 'sequelize-typescript';
+import { Role } from 'src/roles/model/roles.model';
 
 @Table
 export class User extends Model<User> {
@@ -37,4 +47,25 @@ export class User extends Model<User> {
     type: DataType.TEXT,
   })
   image: string;
+
+  @ForeignKey(() => Role)
+  @Column({
+    type: DataType.INTEGER,
+    defaultValue: 3,
+  })
+  roleId: number;
+
+  @BelongsTo(() => Role)
+  role: Role;
+
+  @BeforeCreate
+  @BeforeUpdate
+  static async validateRoleId(instance: User) {
+    const role = await Role.findByPk(instance.roleId);
+    if (!role) {
+      throw new Error(
+        `roleId ${instance.roleId} does not exist in the Role table.`,
+      );
+    }
+  }
 }

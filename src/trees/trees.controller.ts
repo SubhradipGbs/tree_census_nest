@@ -1,9 +1,19 @@
-import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { TreesService } from './trees.service';
 import { CreateTreeDto } from './dto/create-tree.dto';
 import { UpdateTreeDto } from './dto/update-tree.dto';
 import { Tree } from './model/tree.model';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('trees')
 export class TreesController {
   constructor(private readonly treesService: TreesService) {}

@@ -19,15 +19,17 @@ export class UsersService {
     private readonly userModel: typeof User,
   ) {}
 
-  async create(createUserDto: CreateUserDto): Promise<User> {
+  async create(createUserDto: CreateUserDto): Promise<object> {
     const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
     try {
-      return await this.userModel.create({
+      const user = await this.userModel.create({
         ...createUserDto,
         password: hashedPassword,
       });
+      const { password, ...result } = user.dataValues;
+      return result;
     } catch (error) {
-      throw new BadRequestException('User creation failed');
+      throw new BadRequestException({ message: error.message });
     }
   }
 
@@ -59,6 +61,7 @@ export class UsersService {
   async validateUser(body: LoginUserDTO): Promise<User | null> {
     return new Promise(async (resolve, reject) => {
       const { mobileNo, password } = body;
+      console.log(body);
       try {
         const user = await this.userModel.findOne({ where: { mobileNo } });
         if (!user)
