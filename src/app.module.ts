@@ -9,6 +9,8 @@ import { UsersModule } from './users/users.module';
 import { TreesModule } from './trees/trees.module';
 import { AuthModule } from './auth/auth.module';
 import { RolesModule } from './roles/roles.module';
+import { MulterModule } from '@nestjs/platform-express';
+import { FileStorageModule } from './file-storage/file-storage.module';
 
 @Module({
   imports: [
@@ -30,9 +32,13 @@ import { RolesModule } from './roles/roles.module';
       }),
       inject: [ConfigService],
     }),
+    MulterModule.register({
+      dest: '/uploads',
+    }),
     RolesModule,
     AuthModule,
     UsersModule,
+    FileStorageModule,
     TreesModule,
   ],
   controllers: [AppController],

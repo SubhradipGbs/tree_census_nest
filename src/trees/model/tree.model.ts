@@ -1,4 +1,5 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
+import { TreeImg } from './tree-img.model';
 
 @Table
 export class Tree extends Model<Tree> {
@@ -90,4 +91,7 @@ export class Tree extends Model<Tree> {
     type: DataType.TEXT,
   })
   action_needed: string;
+
+  @HasMany(() => TreeImg)
+  images: TreeImg[];
 }
