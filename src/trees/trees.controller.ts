@@ -43,6 +43,7 @@ export class TreesController {
   }
 
   @Get('get-all')
+  @UseGuards(JwtAuthGuard)
   findAll(): Promise<Tree[]> {
     return this.treesService.findAll();
   }

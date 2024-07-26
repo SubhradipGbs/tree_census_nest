@@ -11,6 +11,7 @@ import { AuthModule } from './auth/auth.module';
 import { RolesModule } from './roles/roles.module';
 import { MulterModule } from '@nestjs/platform-express';
 import { FileStorageModule } from './file-storage/file-storage.module';
+import { ApplicationModule } from './application/application.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { FileStorageModule } from './file-storage/file-storage.module';
     UsersModule,
     FileStorageModule,
     TreesModule,
+    ApplicationModule,
   ],
   controllers: [AppController],
   providers: [AppService],
