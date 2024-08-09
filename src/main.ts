@@ -5,7 +5,14 @@ import helmet from 'helmet';
 import { FormDataValidationPipe } from './form-data.validation';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, { cors: false });
+  const app = await NestFactory.create(AppModule);
+  app.enableCors({
+    origin: '*',
+    credentials: true,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    // allowedHeaders: 'Content-Type, Authorization',
+  });
+
   app.useGlobalPipes(
     new FormDataValidationPipe(),
     new ValidationPipe({ whitelist: true, transform: true }),

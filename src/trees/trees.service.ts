@@ -26,11 +26,12 @@ export class TreesService {
       const imageRecords = savedFiles.map((file) => ({
         filename: file.filename,
         dir: `/${uploadDir}${file.filename}`,
-        treeId: tree.id,
+        treeId: tree.tree_id,
       }));
       await this.treeImgModel.bulkCreate(imageRecords);
       return tree;
     } catch (err) {
+      console.log(err);
       throw new BadRequestException('error creating tree');
     }
   }
