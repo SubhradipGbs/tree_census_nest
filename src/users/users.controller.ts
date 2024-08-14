@@ -5,6 +5,7 @@ import {
   Body,
   Param,
   ParseIntPipe,
+  Request,
   UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
@@ -34,5 +35,11 @@ export class UsersController {
     @Body() updateUserDto: UpdateUserDto,
   ): Promise<User> {
     return this.usersService.update(id, updateUserDto);
+  }
+
+  @Post('user-details')
+  getDetails(@Request() req): Promise<User> {
+    const { mobileNo } = req.body;
+    return this.usersService.getDetails(mobileNo);
   }
 }

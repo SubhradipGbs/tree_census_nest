@@ -12,7 +12,7 @@ export class AuthController {
   async login(@Request() req) {
     try {
       const data = await this.authService.login(req.user);
-      return { statusCode: 1, Message: 'Login Successful', data };
+      return { status: 1, Message: 'Login Successful', data };
     } catch (err) {
       throw err;
     }

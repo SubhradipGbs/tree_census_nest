@@ -3,6 +3,7 @@ import {
   HttpException,
   HttpStatus,
   Injectable,
+  InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -80,5 +81,23 @@ export class UsersService {
         reject(error);
       }
     });
+  }
+
+  async getDetails(mobile: string): Promise<User> {
+    try {
+      console.log(mobile);
+      const user = await this.userModel.findOne({
+        where: { mobileNo: mobile },
+        attributes: {
+          exclude: ['password'],
+        },
+      });
+      if (!user) {
+        throw new NotFoundException('mobile no not registered');
+      }
+      return user;
+    } catch {
+      throw new InternalServerErrorException('Error');
+    }
   }
 }
