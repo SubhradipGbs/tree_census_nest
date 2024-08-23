@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -12,6 +12,7 @@ import { RolesModule } from './roles/roles.module';
 import { MulterModule } from '@nestjs/platform-express';
 import { FileStorageModule } from './file-storage/file-storage.module';
 import { ApplicationModule } from './application/application.module';
+import { verifyUserToken } from './auth/middleware/auth.middleware';
 
 @Module({
   imports: [

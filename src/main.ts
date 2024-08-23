@@ -10,9 +10,10 @@ async function bootstrap() {
     origin: '*',
     credentials: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    // allowedHeaders: 'Content-Type, Authorization',
+    allowedHeaders: 'Content-Type, Authorization',
+    preflightContinue: false,
   });
-
+  app.use(helmet());
   app.useGlobalPipes(
     new FormDataValidationPipe(),
     new ValidationPipe({ whitelist: true, transform: true }),

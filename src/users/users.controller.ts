@@ -40,6 +40,8 @@ export class UsersController {
   @Post('user-details')
   getDetails(@Request() req): Promise<User> {
     const { mobileNo } = req.body;
+    // const tokenUser = req.user;
+    console.log(req);
     return this.usersService.getDetails(mobileNo);
   }
 }

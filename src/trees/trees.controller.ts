@@ -9,12 +9,14 @@ import {
   BadRequestException,
   Res,
   HttpStatus,
+  Req,
 } from '@nestjs/common';
+
 import { TreesService } from './trees.service';
 import { CreateTreeDto } from './dto/create-tree.dto';
-import { Tree } from './model/tree.model';
+
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
+import { FilesInterceptor } from '@nestjs/platform-express';
 import * as multer from 'multer';
 import { MulterOptions } from '@nestjs/platform-express/multer/interfaces/multer-options.interface';
 import { Response } from 'express';
@@ -31,10 +33,12 @@ export class TreesController {
   @Post('add-tree')
   @UseInterceptors(FilesInterceptor('images', 10, multerOptions))
   async create(
+    @Req() req: Request,
     @Body() createTreeDto: CreateTreeDto,
     @UploadedFiles() files: Express.Multer.File[],
     @Res() res: Response,
   ): Promise<Response> {
+    console.log(req);
     try {
       if (!files || files.length === 0) {
         throw new BadRequestException('No file found');
