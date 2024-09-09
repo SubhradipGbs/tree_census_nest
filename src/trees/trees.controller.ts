@@ -31,19 +31,19 @@ export class TreesController {
   constructor(private readonly treesService: TreesService) {}
 
   @Post('add-tree')
-  @UseInterceptors(FilesInterceptor('images', 10, multerOptions))
+  // @UseInterceptors(FilesInterceptor('images', 10, multerOptions))
   async create(
     @Req() req: Request,
     @Body() createTreeDto: CreateTreeDto,
-    @UploadedFiles() files: Express.Multer.File[],
+    // @UploadedFiles() files: Express.Multer.File[],
     @Res() res: Response,
   ): Promise<Response> {
     console.log(req);
     try {
-      if (!files || files.length === 0) {
-        throw new BadRequestException('No file found');
-      }
-      const tree = await this.treesService.create(createTreeDto, files);
+      // if (!files || files.length === 0) {
+      //   throw new BadRequestException('No file found');
+      // }
+      const tree = await this.treesService.create(createTreeDto);
       return res.status(HttpStatus.CREATED).json({
         statusCode: 1,
         message: 'Tree created successfully',

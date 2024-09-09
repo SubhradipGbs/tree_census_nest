@@ -17,18 +17,18 @@ export class TreesService {
 
   async create(
     createTreeDto: CreateTreeDto,
-    files: Express.Multer.File[],
+    // files: Express.Multer.File[],
   ): Promise<Tree> {
     try {
       const tree = await this.treeModel.create(createTreeDto);
-      const uploadDir = 'uploads/';
-      const savedFiles = await this.fileStorageService.saveImgFiles(files);
-      const imageRecords = savedFiles.map((file) => ({
-        filename: file.filename,
-        dir: `/${uploadDir}${file.filename}`,
-        treeId: tree.tree_id,
-      }));
-      await this.treeImgModel.bulkCreate(imageRecords);
+      // const uploadDir = 'uploads/';
+      // const savedFiles = await this.fileStorageService.saveImgFiles(files);
+      // const imageRecords = savedFiles.map((file) => ({
+      //   filename: file.filename,
+      //   dir: `/${uploadDir}${file.filename}`,
+      //   treeId: tree.tree_id,
+      // }));
+      // await this.treeImgModel.bulkCreate(imageRecords);
       return tree;
     } catch (err) {
       console.log(err);

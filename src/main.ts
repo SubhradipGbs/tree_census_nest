@@ -15,7 +15,7 @@ async function bootstrap() {
   });
   app.use(helmet());
   app.useGlobalPipes(
-    new FormDataValidationPipe(),
+    // new FormDataValidationPipe(),
     new ValidationPipe({ whitelist: true, transform: true }),
   );
   app.use(helmet());

@@ -13,8 +13,8 @@ export class AuthService {
     return new Promise(async (resolve, reject) => {
       try {
         const user = await this.usersService.validateUser(body);
-        // const { password, ...result } = user;
-        resolve(user);
+        const { password, ...result } = user;
+        resolve(result);
       } catch (error) {
         reject(error);
       }
