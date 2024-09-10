@@ -23,8 +23,9 @@ export class AuthService {
 
   async login(user: any): Promise<object> {
     return new Promise(async (resolve, reject) => {
+      const {user_id,mobileNo,roleId}=user.dataValues;
       try {
-        resolve({ token: this.jwtService.sign(user) });
+        resolve({ token: this.jwtService.sign(user),user_id,mobileNo,roleId});
       } catch (err) {
         reject(err);
       }

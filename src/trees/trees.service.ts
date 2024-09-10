@@ -39,4 +39,8 @@ export class TreesService {
   async findAll(): Promise<Tree[]> {
     return await this.treeModel.findAll();
   }
+
+  async findImgByTree(treeId:number): Promise<TreeImg[]> {
+    return await this.treeImgModel.findAll({where:{treeId}});
+  }
 }
