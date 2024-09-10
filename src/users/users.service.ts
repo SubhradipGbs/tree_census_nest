@@ -12,12 +12,15 @@ import { InjectModel } from '@nestjs/sequelize';
 import { User } from './model/user.model';
 import * as bcrypt from 'bcryptjs';
 import { LoginUserDTO } from 'src/auth/dto/login.dto';
+import { Role } from 'src/roles/model/roles.model';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectModel(User)
     private readonly userModel: typeof User,
+    @InjectModel(Role)
+    private readonly roleModel: typeof Role,
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<object> {
@@ -56,7 +59,16 @@ export class UsersService {
   }
 
   async findAll(): Promise<User[]> {
-    return this.userModel.findAll();
+    return await this.userModel.findAll({
+      attributes: { exclude: ['password'] },
+      include: [
+        {
+          model: this.roleModel,
+          attributes: ['roleName'],
+          as: 'role',
+        },
+      ],
+    });
   }
 
   async validateUser(body: LoginUserDTO): Promise<User | null> {

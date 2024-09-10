@@ -1,12 +1,12 @@
-import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UsersController } from './users.controller';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { User } from './model/user.model';
-import { verifyUserToken } from 'src/auth/middleware/auth.middleware';
+import { Role } from 'src/roles/model/roles.model';
 
 @Module({
-  imports: [SequelizeModule.forFeature([User])],
+  imports: [SequelizeModule.forFeature([User,Role])],
   controllers: [UsersController],
   providers: [UsersService],
   exports: [UsersService],

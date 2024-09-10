@@ -17,10 +17,10 @@ export class Tree extends Model<Tree> {
   tree_name: string;
 
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.TEXT,
     allowNull: false,
   })
-  age: number;
+  age: string;
 
   @Column({
     type: DataType.TEXT,
@@ -59,22 +59,34 @@ export class Tree extends Model<Tree> {
   health_status: string;
 
   @Column({
-    type: DataType.FLOAT,
+    type: DataType.TEXT,
     allowNull: false,
   })
-  girth: number;
+  latitude: string;
 
   @Column({
-    type: DataType.FLOAT,
+    type: DataType.TEXT,
     allowNull: false,
   })
-  height: number;
+  longitude: string;
 
   @Column({
-    type: DataType.FLOAT,
+    type: DataType.TEXT,
     allowNull: false,
   })
-  canopy: number;
+  girth: string;
+
+  @Column({
+    type: DataType.TEXT,
+    allowNull: false,
+  })
+  height: string;
+
+  @Column({
+    type: DataType.TEXT,
+    allowNull: false,
+  })
+  canopy: string;
 
   @Column({
     type: DataType.TEXT,

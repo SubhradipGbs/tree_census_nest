@@ -7,12 +7,15 @@ import {
   ParseIntPipe,
   Request,
   UseGuards,
+  Res,
+  HttpStatus,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './model/user.model';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { Response } from 'express';
 
 // @UseGuards(JwtAuthGuard)
 @Controller('users')
@@ -25,8 +28,20 @@ export class UsersController {
   }
 
   @Get('get-all')
-  findAll(): Promise<User[]> {
-    return this.usersService.findAll();
+  async findAll(@Res() res:Response): Promise<Response> {
+    try {
+      const users = await this.usersService.findAll();
+      return res.status(HttpStatus.OK).json({
+        statusCode: 1,
+        message: 'data found',
+        data: users,
+      });
+    } catch (err) {
+      return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+        statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+        message: 'Failed to retrieve users',
+      });
+    }
   }
 
   @Post('update/:id')
