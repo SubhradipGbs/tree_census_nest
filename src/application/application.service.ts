@@ -23,8 +23,17 @@ export class ApplicationService {
   async findAll(): Promise<Requests[]> {
     return await this.requestModel.findAll();
   }
-  
-  async findByUser(userId:number): Promise<Requests[]> {
-    return await this.requestModel.findAll({where:{appliedBy:userId}});
+
+  async findByUser(userId: number): Promise<Requests[]> {
+    return await this.requestModel.findAll({
+      where: { appliedBy: userId },
+      // include: [
+      //   {
+      //     model: ,
+      //     attributes: ['roleName'],
+      //     as: 'role',
+      //   },
+      // ],
+    });
   }
 }

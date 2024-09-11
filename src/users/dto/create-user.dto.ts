@@ -1,5 +1,6 @@
 import {
   IsNotEmpty,
+  IsNumber,
   IsOptional,
   IsString,
   Matches,
@@ -35,4 +36,8 @@ export class CreateUserDto {
   @IsOptional()
   @IsString()
   readonly image?: string;
+
+  @IsOptional()
+  @IsNumber()
+  roleId:number
 }
