@@ -13,7 +13,6 @@ async function bootstrap() {
     allowedHeaders: 'Content-Type, Authorization',
     preflightContinue: false,
   });
-  app.use(helmet());
   app.useGlobalPipes(
     // new FormDataValidationPipe(),
     new ValidationPipe({ whitelist: true, transform: true }),

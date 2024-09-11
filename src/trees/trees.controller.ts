@@ -39,6 +39,7 @@ export class TreesController {
     @UploadedFiles() files: Express.Multer.File[],
     @Res() res: Response,
   ): Promise<Response> {
+    console.log(req);
     try {
       if (!files || files.length === 0) {
         throw new BadRequestException('No file found');
@@ -53,6 +54,7 @@ export class TreesController {
       console.error(err);
       return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
         statusCode: 0,
+        err:err,
         message: err.message || 'Internal server error',
       });
     }

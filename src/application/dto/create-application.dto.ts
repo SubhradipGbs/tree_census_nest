@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class CreateRequestDto {
   @IsNotEmpty()
@@ -11,5 +11,25 @@ export class CreateRequestDto {
 
   @IsNotEmpty()
   @IsString()
-  status: string;
+  name: string;
+
+  @IsNotEmpty()
+  @IsString()
+  location: string;
+
+  @IsNotEmpty()
+  @IsString()
+  plot_number: string;
+
+  @IsNotEmpty()
+  @IsString()
+  plot_owner: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  no_of_trees: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  appliedBy: number;
 }
