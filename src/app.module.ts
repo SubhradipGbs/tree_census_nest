@@ -12,10 +12,21 @@ import { RolesModule } from './roles/roles.module';
 import { MulterModule } from '@nestjs/platform-express';
 import { FileStorageModule } from './file-storage/file-storage.module';
 import { ApplicationModule } from './application/application.module';
-import { verifyUserToken } from './auth/middleware/auth.middleware';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'uploads'),
+      serveRoot: '/uploads',
+      serveStaticOptions: {
+        setHeaders: (res, path) => {
+          res.setHeader('Access-Control-Allow-Origin', '*');
+          res.setHeader('Content-Type', 'image/jpeg');
+        },
+      },
+    }),
     AuthModule,
     ConfigModule.forRoot({
       load: [configuration],
